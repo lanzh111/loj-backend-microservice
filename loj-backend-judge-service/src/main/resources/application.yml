@@ -1,0 +1,62 @@
+# 公共配置文件
+spring:
+  application:
+    name: loj-backend-judge-service
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # session 配置
+  session:
+    # todo 取消注释开启分布式 session（须先配置 Redis）
+     store-type: redis
+    # 30 天过期
+     timeout: 2592000
+  # Redis 配置
+  # todo 需替换配置，然后取消注释
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    database: 1
+#    host: localhost
+    port: 6379
+    timeout: 5000
+#    password: 123456
+
+server:
+  address: 0.0.0.0
+  port: 8103
+  servlet:
+    context-path: /api/judge
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+        path: /api
+
+# 代码沙箱类型配置
+codeSandBox:
+  type: native
+
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.lan.lojbackendjudgeservice.controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
